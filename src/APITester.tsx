@@ -30,7 +30,7 @@ export function APITester() {
         </select>
         <input type="text" name="endpoint" defaultValue="/api/hello" className="url-input" placeholder="/api/hello" />
         <button type="submit" className="send-button">
-          Send
+          Send Davide para aaaaaaaaa
         </button>
       </form>
       <textarea ref={responseInputRef} readOnly placeholder="Response will appear here..." className="response-area" />
