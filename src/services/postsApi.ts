@@ -20,7 +20,7 @@ export async function getPosts(): Promise<PostsResponse> {
     return response.json()
 }
 
-export async function getPost(id: string): Promise<Post> {
+export async function getPost(id: string | undefined): Promise<Post> {
     const response = await fetch(`${API_URL}/posts/${id}`)
     if (!response.ok) {
         throw new Error("Failed to get post")
