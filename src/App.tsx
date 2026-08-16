@@ -1,5 +1,3 @@
-import { APITester } from "./APITester";
-
 import "./logo.css"
 import logo from "./Y_ChatterLogo.png"
 import {useEffect, useState} from "react";
@@ -24,7 +22,6 @@ export function App() {
       <header>
         <img src={logo}  className="logo" width="240" />
       </header>
-      <APITester />
 
     {JSON.stringify(post)}
         </div>
