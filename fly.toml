@@ -1,3 +1,9 @@
+# fly.toml app configuration file generated for compulsoryassignment-1-y on 2026-08-16T11:40:19+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'compulsoryassignment-1-y'
 primary_region = 'arn'
 
 [build]
@@ -13,5 +19,6 @@ primary_region = 'arn'
 
 [[vm]]
   memory = '256mb'
+  cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
