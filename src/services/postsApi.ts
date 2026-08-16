@@ -1,0 +1,47 @@
+/**
+ * API layer
+ *
+ * This file keeps fetch() out of our components
+ */
+
+import type {
+    Post,
+    PostsResponse,
+    CreatePostResponse
+} from "@/types/post.ts";
+
+const API_URL = "https://dummyjson.com"
+
+export async function getPosts(): Promise<PostsResponse> {
+    const response = await fetch(`${API_URL}/posts`)
+    if (!response.ok) {
+        throw new Error("Failed to fetch posts")
+    }
+    return response.json()
+}
+
+export async function getPost(id: string): Promise<Post> {
+    const response = await fetch(`${API_URL}/posts/${id}`)
+    if (!response.ok) {
+        throw new Error("Failed to get post")
+    }
+    return response.json()
+}
+
+export async function createPost(
+    post: CreatePostResponse,
+): Promise<Post> {
+    const response = await fetch(`${API_URL}/posts/add`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to create post");
+    }
+
+    return response.json();
+}
