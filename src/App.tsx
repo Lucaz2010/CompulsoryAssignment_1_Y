@@ -1,4 +1,4 @@
-import "./logo.css"
+import "./index.css"
 import logo from "./Y_ChatterLogo.png"
 import {useEffect, useState} from "react";
 
@@ -16,21 +16,36 @@ export function App() {
   }, []);
 
   return (
+      <main className="min-h-screen bg-base-200 flex items-center justify-center p-8">
+        <div className="card bg-base-100 w-full max-w-md shadow-xl">
+          <div className="card-body">
+            <h1 className="card-title text-3xl">
+              Y Chatter
+            </h1>
 
-      <div>
+            <p>
+              Tailwind CSS and daisyUI are working!
+            </p>
 
-      <header>
-        <img src={logo}  className="logo" width="240" />
-      </header>
-
-    {JSON.stringify(post)}
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary">
+                Awesome!
+              </button>
+            </div>
+          </div>
         </div>
-        );
-
+      </main>
+      /*
+      <div>
+        <header>
+          <img src={logo} className="logo" width="240" />
+        </header>
+        {
+          JSON.stringify(post)
         }
-
-
-
-
+      </div>
+       */
+  );
+}
 
 export default App;
