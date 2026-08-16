@@ -1,23 +1,39 @@
 import { APITester } from "./APITester";
 
-import logo from "./logo.svg";
-import reactLogo from "./react.svg";
+import "./logo.css"
+import logo from "./Y_ChatterLogo.png"
+import {useEffect, useState} from "react";
 
 export function App() {
-  return (
-    <div className="app">
-      <div className="logo-container">
-        <img src={logo} alt="Bun Logo" className="logo bun-logo" />
-        <img src={reactLogo} alt="React Logo" className="logo react-logo" />
-      </div>
 
-      <h1>Bun + React</h1>
-      <p>
-        Edit <code>src/App.tsx</code> and save to test HMR
-      </p>
+  const [post, setPost] = useState()
+
+  useEffect(() => {
+
+    fetch('https://dummyjson.com/posts/').then(response => {
+      response.json().then(json => {
+        setPost(json)
+      })
+    })
+  }, []);
+
+  return (
+
+      <div>
+
+      <header>
+        <img src={logo}  className="logo" width="240" />
+      </header>
       <APITester />
-    </div>
-  );
-}
+
+    {JSON.stringify(post)}
+        </div>
+        );
+
+        }
+
+
+
+
 
 export default App;
