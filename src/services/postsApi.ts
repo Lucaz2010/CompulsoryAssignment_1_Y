@@ -7,7 +7,9 @@
 import type {
     Post,
     PostsResponse,
-    CreatePostResponse
+    CreatePostResponse,
+    Comment,
+    CommentsResponse
 } from "@/types/post.ts";
 
 const API_URL = "https://dummyjson.com"

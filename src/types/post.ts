@@ -23,3 +23,16 @@ export interface CreatePostResponse {
     body: string
     userId: number
 }
+
+export interface Comment {
+    id: number
+    body: string
+    userId: number
+}
+
+export interface CommentsResponse {
+    comments: Comment[]
+    total: number
+    skip: number
+    limit: number
+}
