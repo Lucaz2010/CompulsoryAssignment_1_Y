@@ -28,8 +28,25 @@ export async function getPost(id: string | undefined): Promise<Post> {
     return response.json()
 }
 
+export async function searchPosts(query: string): Promise<PostsResponse> {
+    const response = await fetch(
+        `${API_URL}/posts/search?q=${encodeURIComponent(query)}`)
+    if (!response.ok) {
+        throw new Error("Failed to search posts")
+    }
+    return response.json()
+}
+
+export async function getPostsByTag(slug:string): Promise<PostsResponse>{
+    const response = await fetch(`${API_URL}/posts/tag/${slug}`)
+    if (!response.ok) {
+        throw new Error("Failed to fetch posts by tags")
+    }
+    return response.json()
+}
+
 export async function getPostTags(){
-    const res = await fetch(`${API_URL}/posts/tags/`)
+    const res = await fetch(`${API_URL}/posts/tag-list/`)
     if (!res.ok) {
         throw new Error("Failed to fetch tags")
     }

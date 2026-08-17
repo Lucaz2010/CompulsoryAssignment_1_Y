@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router";
 import {PostCard} from "@/components/PostCard.tsx";
-import {getPosts} from "@/services/postsApi.ts";
+import {Navbar} from "@/components/Navbar.tsx";
+import {getPosts, searchPosts,getPostsByTag} from "@/services/postsApi.ts";
 import type {Post} from "@/types/post.ts";
 
 export function FeedPage() {
@@ -9,6 +10,41 @@ export function FeedPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+async function handleSearch(query: string){
+    console.log("QUERY:", query);
+
+        setLoading(true);
+        setError(null)
+      try{
+          if (query.startsWith("#")){
+              const slug = query.slice(1).trim().toLowerCase();
+              console.log("SLUG:", slug);
+
+              if (slug){
+                  const data = await getPostsByTag(slug);
+                  setPosts(data.posts);
+              }
+          }
+          else if (query.trim()){
+              const data = await searchPosts(query);
+              setPosts(data.posts);
+          }
+          else {
+              const data = await getPosts();
+              setPosts(data.posts);
+          }
+
+
+
+      }
+      catch{
+          setError("Could not load posts");
+
+      }
+      finally {
+          setLoading(false);
+      }
+    }
     useEffect(() => {
         async function loadPosts() {
             try {
@@ -24,6 +60,9 @@ export function FeedPage() {
     }, []);
 
     return (
+
+    <>
+        <Navbar onSearch={handleSearch}/>
         <main className="mx-auto max-w-3xl px-4 py-8">
             <div className="mb-8 flex items-center justify-between">
                 <div>
@@ -58,5 +97,6 @@ export function FeedPage() {
                 </div>
             )}
         </main>
+    </>
     );
 }
