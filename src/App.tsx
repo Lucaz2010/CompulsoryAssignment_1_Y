@@ -22,9 +22,6 @@ const router = createBrowserRouter([
 
 export default function App() {
 
-  useEffect(() => {
-    getPostTags().then(tags => console.log(tags))
-  }, []);
   return <RouterProvider router={router} />
 
 }

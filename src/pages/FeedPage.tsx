@@ -11,14 +11,11 @@ export function FeedPage() {
     const [error, setError] = useState<string | null>(null);
 
 async function handleSearch(query: string){
-    console.log("QUERY:", query);
-
         setLoading(true);
         setError(null)
       try{
           if (query.startsWith("#")){
               const slug = query.slice(1).trim().toLowerCase();
-              console.log("SLUG:", slug);
 
               if (slug){
                   const data = await getPostsByTag(slug);

@@ -1,11 +1,13 @@
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router";
-import {getPost} from "@/services/postsApi.ts";
-import type {Post} from "@/types/post";
+import {getCommentsByPostId, getPost} from "@/services/postsApi.ts";
+import type {Post,Comment} from "@/types/post";
+import {CommentList} from "@/components/CommentList.tsx";
 
 export function PostPage() {
     const {id} = useParams<{id: string}>();
     const [post, setPost] = useState<Post | null>(null);
+    const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -20,6 +22,8 @@ export function PostPage() {
             try {
                 const data = await getPost(id);
                 setPost(data);
+                const commentsData = await getCommentsByPostId(id);
+                setComments(commentsData.comments);
             } catch {
                 setError("Failed to load post.");
             } finally {
@@ -55,9 +59,6 @@ export function PostPage() {
                             User #{post.userId}
                         </span>
 
-                        <span className="text-sm text-base-content/60">
-                            {post.views} views
-                        </span>
                     </div>
                     <h1 className="text-3xl font-bold">
                         {post.title}
@@ -76,9 +77,11 @@ export function PostPage() {
                     <div className="flex gap-6">
                         <span>👍 {post.reactions.likes}</span>
                         <span>👎 {post.reactions.dislikes}</span>
+                        <span> 👁️️️ {post.views} </span>
                     </div>
                 </div>
             </article>
+            <CommentList comments={comments}/>
         </main>
     );
 }

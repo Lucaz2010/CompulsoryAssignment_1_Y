@@ -47,13 +47,24 @@ export async function getPostsByTag(slug:string): Promise<PostsResponse>{
     return response.json()
 }
 
-export async function getPostTags(){
+export async function getPostTags(): Promise<string[]> {
     const res = await fetch(`${API_URL}/posts/tag-list/`)
     if (!res.ok) {
         throw new Error("Failed to fetch tags")
     }
     return res.json()
 }
+
+export async function getCommentsByPostId(postId: string | undefined): Promise<CommentsResponse> {
+    const response = await fetch(`${API_URL}/posts/${postId}/comments`)
+
+    if (!response.ok){
+        throw new Error("Failed to get comments")
+    }
+    return response.json()
+}
+
+
 
 export async function createPost(
     post: CreatePostResponse,

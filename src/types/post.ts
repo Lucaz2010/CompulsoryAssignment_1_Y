@@ -27,7 +27,11 @@ export interface CreatePostResponse {
 export interface Comment {
     id: number
     body: string
-    userId: number
+    user:{
+        id: number
+        name: string
+        fullName: string
+    }
 }
 
 export interface CommentsResponse {
