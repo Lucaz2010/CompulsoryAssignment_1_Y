@@ -11,12 +11,9 @@ export function PostCard({post}: PostCardProps) {
             <div className="card-body">
                 <div className="flex items-center justify-between">
                     <span className="text-sm text-base-content/60">
-                        User #{post.userId}
+                        user#{post.userId}
                     </span>
 
-                    <span className="text-sm text-base-content/60">
-                        {post.views} views
-                    </span>
                 </div>
 
                 <h2 className="card-title">
@@ -42,6 +39,9 @@ export function PostCard({post}: PostCardProps) {
                     <div className="flex gap-4 text-sm">
                         <span>👍 {post.reactions.likes}</span>
                         <span>👎 {post.reactions.dislikes}</span>
+                        <span> 👁️️️ {post.views} </span>
+
+
                     </div>
 
                     <Link
