@@ -2,6 +2,8 @@ import {createBrowserRouter, RouterProvider} from "react-router";
 import {FeedPage} from "@/pages/FeedPage.tsx";
 import {PostPage} from "@/pages/PostPage.tsx";
 import {CreatePostPage} from "@/pages/CreatePostPage.tsx";
+import {useEffect} from "react";
+import {getPostTags} from "@/services/postsApi.ts";
 
 const router = createBrowserRouter([
     {
@@ -19,5 +21,11 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+
+  useEffect(() => {
+    getPostTags().then(tags => console.log(tags))
+  }, []);
   return <RouterProvider router={router} />
+
 }
+

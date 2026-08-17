@@ -28,6 +28,14 @@ export async function getPost(id: string | undefined): Promise<Post> {
     return response.json()
 }
 
+export async function getPostTags(){
+    const res = await fetch(`${API_URL}/posts/tags/`)
+    if (!res.ok) {
+        throw new Error("Failed to fetch tags")
+    }
+    return res.json()
+}
+
 export async function createPost(
     post: CreatePostResponse,
 ): Promise<Post> {
