@@ -11,6 +11,7 @@ import type {
     Comment,
     CommentsResponse
 } from "@/types/post.ts";
+import * as http from "node:http";
 
 const API_URL = "https://dummyjson.com"
 
@@ -82,4 +83,22 @@ export async function createPost(
     }
 
     return response.json();
+
+
+
+}
+
+
+function  updatePost(post: Post) {
+
+    fetch(`http://dummyjson.com/posts/1`,{
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            title: post.title,
+            body: post.body,
+        })
+    })
+        .then(res => res.json())
+        .then(console.log);
 }
