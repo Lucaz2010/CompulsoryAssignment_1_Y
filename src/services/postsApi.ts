@@ -84,12 +84,14 @@ export async function createPost(
 
     return response.json();
 
+
+
 }
 
-// HJHydejw
+
 function  updatePost(post: Post) {
 
-    fetch(`{API_URL}/posts/1`,{
+    fetch(`http://dummyjson.com/posts/1`,{
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
