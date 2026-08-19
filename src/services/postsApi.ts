@@ -11,7 +11,6 @@ import type {
     Comment,
     CommentsResponse
 } from "@/types/post.ts";
-import * as http from "node:http";
 
 const API_URL = "https://dummyjson.com"
 
