@@ -5,7 +5,7 @@ interface CommentListProps {
 }
 
 export function CommentList({comments}: CommentListProps) {
-    console.log(comments);
+    //console.log(comments);
     return (
         <div>
             {comments.map((comment) => (
