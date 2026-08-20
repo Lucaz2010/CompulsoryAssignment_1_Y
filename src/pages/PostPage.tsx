@@ -12,6 +12,7 @@ export function PostPage() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+
         if(!id){
             setError("Post ID is missing.");
             setLoading(false);
@@ -20,11 +21,13 @@ export function PostPage() {
 
         async function loadPost() {
             try {
+                console.log("Fetching post with ID:", id);
                 const data = await getPost(id);
                 setPost(data);
                 const commentsData = await getCommentsByPostId(id);
                 setComments(commentsData.comments);
             } catch {
+
                 setError("Failed to load post.");
             } finally {
                 setLoading(false);

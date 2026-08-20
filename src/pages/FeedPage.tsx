@@ -28,7 +28,9 @@ async function handleSearch(query: string){
           }
           else {
               const data = await getPosts();
-              setPosts(data.posts);
+              const localPosts: Post[] = JSON.parse(localStorage.getItem("local_posts") || "[]");
+              setPosts([...localPosts, ...data.posts]);
+
           }
 
 
@@ -46,7 +48,8 @@ async function handleSearch(query: string){
         async function loadPosts() {
             try {
                 const data = await getPosts();
-                setPosts(data.posts);
+                const localPosts: Post[] = JSON.parse(localStorage.getItem("local_posts") || "[]");
+                setPosts([...localPosts, ...data.posts]);
             } catch {
                 setError("Could not load posts.");
             } finally {

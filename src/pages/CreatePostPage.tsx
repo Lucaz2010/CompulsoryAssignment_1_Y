@@ -18,13 +18,27 @@ export function CreatePostPage() {
         setError(null);
         setLoading(true);
 
+
         try {
-            const post = await createPost({
+            const newPost = await createPost({
                 title,
                 body,
                 userId: Number(userId),
+
             });
-            navigate(`/posts/${post.id}`);
+            const newFakePost = {
+                ...newPost,
+                tags: newPost.tags || [],
+                reactions: newPost.reactions || { likes: 0, dislikes: 0 },
+                views: newPost.views || 0,
+            };
+
+            const storedNewPosts = JSON.parse(localStorage.getItem("local_posts")||"[]")
+            localStorage.setItem("local_posts", JSON.stringify([newFakePost, ...storedNewPosts]));
+
+            // navigate(`/posts/${newPost.id}`,{state:{newPost}});
+            navigate("/");
+
         } catch {
             setError("Could not create post.");
         } finally {

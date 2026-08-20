@@ -6,6 +6,11 @@ interface PostCardProps {
 }
 
 export function PostCard({post}: PostCardProps) {
+
+    const reactions =post.reactions || { likes: 0, dislikes: 0 };
+
+    const tags = post.tags || {};
+
     return (
         <article className="card bg-base-100 shadow-sm">
             <div className="card-body">
@@ -25,7 +30,8 @@ export function PostCard({post}: PostCardProps) {
                 </p>
 
                 <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
+                    //
+                    {post.tags?.map((tag) => (
                         <span
                             key={tag}
                             className="badge badge-outline"
@@ -37,9 +43,9 @@ export function PostCard({post}: PostCardProps) {
 
                 <div className="mt-2 flex items-center justify-between">
                     <div className="flex gap-4 text-sm">
-                        <span>👍 {post.reactions.likes}</span>
-                        <span>👎 {post.reactions.dislikes}</span>
-                        <span> 👁️️️ {post.views} </span>
+                        <span>👍 {reactions.likes}</span>
+                        <span>👎 {reactions.dislikes}</span>
+                        <span> 👁️️️ {post.views??0} </span>
 
 
                     </div>
