@@ -11,6 +11,7 @@ export function PostPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [showComments, setShowComments] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -99,6 +100,14 @@ export function PostPage() {
                         <span>👍 {post.reactions.likes}</span>
                         <span>👎 {post.reactions.dislikes}</span>
                         <span> 👁️️️ {post.views} </span>
+                        <button
+                            className="link"
+                            onClick={() => setShowComments((isShown) => !isShown)}
+                            aria-expanded={showComments}
+                            aria-controls="post-comments"
+                        >
+                            💬 {comments.length}
+                        </button>
                     </div>
                     <button
                         className="btn btn-error mt-4"
@@ -109,7 +118,15 @@ export function PostPage() {
                     </button>
                 </div>
             </article>
-            <CommentList comments={comments}/>
+            <section
+                id="post-comments"
+                className={`overflow-hidden transition-all duration-300 ${
+                    showComments ? "mt-4 max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+                }`}
+                aria-hidden={!showComments}
+            >
+                <CommentList comments={comments}/>
+            </section>
         </main>
     );
 }

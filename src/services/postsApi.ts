@@ -64,6 +64,11 @@ export async function getCommentsByPostId(postId: string | undefined): Promise<C
     return response.json()
 }
 
+export async function getCommentCountByPostId(postId: number): Promise<number> {
+    const response = await getCommentsByPostId(String(postId));
+    return response.total;
+}
+
 
 
 export async function createPost(
