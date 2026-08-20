@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {Link, useParams} from "react-router";
-import {getCommentsByPostId, getPost} from "@/services/postsApi.ts";
+import {Link, useNavigate, useParams} from "react-router";
+import {deletePost, getCommentsByPostId, getPost} from "@/services/postsApi.ts";
 import type {Post,Comment} from "@/types/post";
 import {CommentList} from "@/components/CommentList.tsx";
 
@@ -10,6 +10,8 @@ export function PostPage() {
     const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(!id){
@@ -47,6 +49,25 @@ export function PostPage() {
         );
     }
 
+    async function handleDelete() {
+        if (!post || isDeleting) {
+            return;
+        }
+
+        if (!window.confirm("Are you sure you want to delete this post?")) {
+            return;
+        }
+
+        setIsDeleting(true);
+        try {
+            await deletePost(post.id);
+            navigate("/");
+        } catch {
+            setError("Failed to delete post.");
+            setIsDeleting(false);
+        }
+    }
+
     return (
         <main className="mx-auto max-w-3xl px-4 py-8">
             <Link to="/" className="btn btn-ghost mb-6">
@@ -79,6 +100,13 @@ export function PostPage() {
                         <span>👎 {post.reactions.dislikes}</span>
                         <span> 👁️️️ {post.views} </span>
                     </div>
+                    <button
+                        className="btn btn-error mt-4"
+                        onClick={handleDelete}
+                        disabled={isDeleting}
+                    >
+                        {isDeleting ? "Deleting..." : "Delete this post"}
+                    </button>
                 </div>
             </article>
             <CommentList comments={comments}/>

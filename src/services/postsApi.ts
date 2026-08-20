@@ -83,21 +83,16 @@ export async function createPost(
 
     return response.json();
 
-
-
 }
 
-// another test
-function  updatePost(post: Post) {
+export async function deletePost(id: number): Promise<Post> {
+    const response = await fetch(`${API_URL}/posts/${id}`, {
+        method: "DELETE",
+    });
 
-    fetch(`http://dummyjson.com/posts/1`,{
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            title: post.title,
-            body: post.body,
-        })
-    })
-        .then(res => res.json())
-        .then(console.log);
+    if (!response.ok) {
+        throw new Error("Failed to delete post");
+    }
+
+    return response.json();
 }

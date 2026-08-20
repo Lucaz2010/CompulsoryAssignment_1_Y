@@ -1,11 +1,14 @@
 import {Link} from "react-router";
 import type {Post} from "@/types/post.ts";
+import {useState} from "react";
 
 interface PostCardProps {
     post: Post;
 }
 
 export function PostCard({post}: PostCardProps) {
+
+    const [open, setOpen] = useState(false)
     return (
         <article className="card bg-base-100 shadow-sm">
             <div className="card-body">
@@ -40,8 +43,13 @@ export function PostCard({post}: PostCardProps) {
                         <span>👍 {post.reactions.likes}</span>
                         <span>👎 {post.reactions.dislikes}</span>
                         <span> 👁️️️ {post.views} </span>
+                        <button onClick={() => {
+                            setOpen(!open)
+                        }}> 💬 </button>
+                        {
+                           open && <div>commentary</div>
 
-
+                        }
                     </div>
 
                     <Link
