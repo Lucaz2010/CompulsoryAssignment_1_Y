@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Link} from "react-router";
+import {Link, useLocation, useNavigate} from "react-router";
 import {PostCard} from "@/components/PostCard.tsx";
 import {Navbar} from "@/components/Navbar.tsx";
 import {getPosts, searchPosts,getPostsByTag} from "@/services/postsApi.ts";
@@ -9,6 +9,9 @@ export function FeedPage() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const location = useLocation();
+    const navigate = useNavigate();
+
 
 async function handleSearch(query: string){
         setLoading(true);
@@ -29,6 +32,7 @@ async function handleSearch(query: string){
           else {
               const data = await getPosts();
               setPosts(data.posts);
+
           }
 
 
@@ -46,7 +50,13 @@ async function handleSearch(query: string){
         async function loadPosts() {
             try {
                 const data = await getPosts();
-                setPosts(data.posts);
+                const newPost = (location.state as {newPost?: Post}|null)?.newPost;
+                setPosts(newPost ? [newPost, ...data.posts] : data.posts);
+
+                if (newPost){
+                    navigate(".", { replace: true, state: null });
+                }
+
             } catch {
                 setError("Could not load posts.");
             } finally {

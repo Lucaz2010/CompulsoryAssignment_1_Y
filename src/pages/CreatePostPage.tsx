@@ -19,12 +19,22 @@ export function CreatePostPage() {
         setLoading(true);
 
         try {
-            const post = await createPost({
+            const newPost = await createPost({
                 title,
                 body,
                 userId: Number(userId),
             });
-            navigate(`/posts/${post.id}`);
+            const newFakePost = {
+                ...newPost,
+                tags: newPost.tags || [],
+                reactions: newPost.reactions || { likes: 0, dislikes: 0 },
+                views: newPost.views || 0,
+
+            };
+
+            // navigate(`/posts/${newPost.id}`,{state:{newPost}});
+            navigate("/", {state: {newPost: newFakePost}});
+
         } catch {
             setError("Could not create post.");
         } finally {

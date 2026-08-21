@@ -14,6 +14,9 @@ export function PostPage() {
     const [showComments, setShowComments] = useState(false);
     const navigate = useNavigate();
 
+
+
+
     useEffect(() => {
         if(!id){
             setError("Post ID is missing.");
@@ -49,6 +52,8 @@ export function PostPage() {
             </main>
         );
     }
+
+    const tags = Array.isArray(post.tags) ? post.tags : [];
 
     async function handleDelete() {
         if (!post || isDeleting) {
@@ -86,7 +91,7 @@ export function PostPage() {
                         {post.title}
                     </h1>
                     <div className="flex flex-wrap gap-2">
-                        {post.tags.map((tag) => (
+                        {tags.map((tag) => (
                             <span key={tag} className="badge badge-primary">
                                 #{tag}
                             </span>
